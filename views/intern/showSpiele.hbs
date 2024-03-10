@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Turniere</title>
+    <link rel="stylesheet" href="/css/Design.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+
+<div class="topnav container">
+    <b><img src="/images/WienerAC-Logo.png" height="38" width="120" alt=""/></b>
+    <a href="/">Home</a>
+    <a href="/howItWorks" id="soFunktioniertButton">So funktionierts</a>
+    <a href="/contact">Kontakte</a>
+    <a href="/QandA">häufige Fragen</a>
+    <a href="/aboutUs">Über Uns</a>
+    <label class="navsearch">
+        <input type="text" placeholder="">
+    </label>
+</div>
+
+<div style="padding-top: 15rem; display: flex; align-content: center; align-items: center; justify-content: center; flex-direction: column;">
+    <div class="container">
+        <h1>Spiele in dem Turnier</h1>
+        <div class="table-responsive">
+            <table class="table ">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Spieler 1</th>
+                    <th>Spieler 2</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each spiele}}
+                    <tr>
+                        <td>{{this.spiel_id}}</td>
+                        <td>{{this.spieler1Name}}</td>
+                        <td>{{this.spieler2Name}}</td>
+                    {{#if this.showEintragen}}
+                        <td>
+                            <form action="/addPlayer" method="post">
+                                <input type="hidden" name="spielId" value="{{this.spiel_id}}">
+                                <input type="hidden" name="player1" value="{{this.player1}}">
+                                <input type="hidden" name="player2" value="{{6}}">
+                                <button type="submit" class="btn btn-success my-2">Eintragen</button>
+                            </form>
+                        </td>
+                    {{else}}
+                        {{#if this.showActive}}
+                                <td class="btn btn-warning my-2">{{this.status}}</td>
+                            </tr>
+                        {{else}}
+                            {{#if this.showAlert}}
+                                <td class="btn btn-info my-2">{{this.status}}</td>
+                                </tr>
+                            {{else}}
+                                <td>{{this.status}}</td>
+                            {{/if}}
+                        {{/if}}
+                    {{/if}}
+                {{/each}}
+                </tbody>
+            </table>
+            <div class="mt-3"> <a href="/showSpiele/startTurnier" class="btn btn-primary">Turnier starten</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/scripts/openLoginScript.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
